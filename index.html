@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shin Masada</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:25px/1.2 'VT323',monospace;color:#1c2b33;background:#4f8f35;overflow-x:hidden}
+canvas,img{image-rendering:pixelated}
+nav{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(14,28,32,.88);z-index:50;display:flex;justify-content:flex-end;align-items:center;gap:26px;padding:0 24px}
+nav a{color:#fff;text-decoration:none;font-size:26px}nav a:hover{color:#ffd84a}
+#lg{position:absolute;left:16px;top:4px;width:48px;opacity:0;transition:.3s}
+#hero{position:fixed;left:calc(50% - 40px);top:46vh;width:80px;z-index:15;transition:opacity .4s}
+section{position:relative;overflow:hidden}
+.grass{background-size:128px;image-rendering:pixelated}
+.sky{position:absolute;left:0;right:0;top:0;height:var(--sh,36vh);background:#8fe6ff}
+.cl{position:absolute;width:120px;height:26px;background:#fff;box-shadow:26px -20px #fff,64px -12px #fff,0 6px #cfd8e0}
+.path{position:absolute;left:50%;width:min(260px,36vw);margin-left:calc(min(260px,36vw)/-2);top:var(--sh,36vh);bottom:0;background:radial-gradient(ellipse,#6a6a6a 35%,#a2a2a2 36% 62%,transparent 64%) 0 0/34px 18px,#7c7c7c}
+.tr{position:absolute;z-index:4}.pk{position:absolute;z-index:3}
+.pw{position:absolute;overflow:hidden;z-index:3}.pw .pk{position:static;display:block}
+.pw:hover .pk{transform:translateY(-6px)}
+.bub{position:absolute;z-index:20;background:#fff;border:5px solid #111;padding:14px 20px;font-size:clamp(21px,2.3vw,28px);max-width:min(540px,88vw);box-shadow:inset -5px -5px #ddd}
+.bub p{margin:0 0 .7em}.bub p:last-child{margin:0}
+.bub.l::after,.bub.r::after{content:"";position:absolute;top:32px;border:12px solid transparent}
+.bub.l::after{right:-30px;border-left-color:#111}.bub.r::after{left:-30px;border-right-color:#111}
+.t{left:50%;top:6vh;width:min(1000px,92vw);max-width:none;margin-left:calc(min(1000px,92vw)/-2);text-align:center;background:rgba(240,251,255,.92)}
+.t small{display:block;font-size:clamp(24px,3vw,36px)}.t b{display:block;font-weight:400;font-size:clamp(46px,8vw,104px);letter-spacing:.06em;line-height:1}
+.rv{opacity:0;translate:var(--dx,0) 36px;transition:opacity .7s,translate .7s}.rv.in{opacity:1;translate:0 0}
+h2{font:400 clamp(64px,9vw,110px)/1 'VT323',monospace;color:#fff;text-align:center;margin:0;position:relative}
+#projects{background:#405c88;padding:190px 5% 120px}
+#projects svg{position:absolute;left:0;top:0;width:100%;height:170px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:48px 40px;margin-top:70px;position:relative}
+.card{aspect-ratio:16/9;background:#2c4166;border:5px solid #11213d;display:grid;place-items:center;color:#cfe0ff;text-align:center;font-size:30px;box-shadow:inset -6px -6px #223557}
+#skills{background:#090909;padding-bottom:100px}
+#sk{width:100%;height:220px;display:block;margin-bottom:30px}
+#skills h2{margin-top:-170px;margin-bottom:150px}
+.chart{display:flex;max-width:1000px;margin:0 auto;padding:0 5%;height:380px;color:#eee}
+.ax{display:flex;flex-direction:column;justify-content:space-between;text-align:right;padding-right:14px;width:130px;font-size:26px}
+.bars{flex:1;border-left:2px solid #ddd;display:flex;align-items:flex-end;justify-content:space-around;gap:10px}
+.bars div{width:11%;height:0;transition:height 1.3s steps(20)}.chart.in .bars div{height:var(--h)}
+#pipe{position:absolute;left:50%;top:0;margin-left:-62px;width:124px;z-index:6}
+.pb,.pl{background:linear-gradient(90deg,#2b8a2b,#6fe064 40%,#2b8a2b);border:4px solid #123f12}
+.pb{width:96px;height:100px;margin:0 auto;border-top:0;border-bottom:0}.pl{height:38px}
+#c2w{position:absolute;left:calc(50% - 40px);top:150px;width:80px;z-index:5;transform:translateY(-142px)}
+#c2w.out{transform:none;transition:transform 1.5s steps(14)}#c2{width:80px;display:block}
+.cb1{left:3%;top:110px;width:36vw}.cb2{right:3%;top:130px;width:29vw}
+.cb1 a{color:#2d56b8}.soc{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.soc a{color:#fff;text-decoration:none;padding:6px 12px;border:3px solid #111}
+#contact{min-height:max(100vh,760px)}
+.zz{position:absolute;z-index:4;font-style:normal;font-size:30px;color:#fff;animation:zz 2.4s ease-out infinite}
+@keyframes fly{from{left:-100px}to{left:105%}}
+@keyframes fl{50%{transform:translateY(-12px)}}
+@keyframes zz{from{opacity:1;transform:translate(0,0)}to{opacity:0;transform:translate(24px,-34px)}}
+@media(max-width:900px){nav{gap:14px}nav a{font-size:21px}.ax{width:80px;font-size:20px}.cb1,.cb2{left:3%;right:auto;width:94vw}.cb1{top:310px}.cb2{top:560px}#contact{min-height:1050px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<nav><canvas id="lg" width="16" height="11"></canvas><a href="#about">About</a><a href="#projects">Projects</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav>
+<canvas id="hero" width="16" height="25"></canvas>
+
+<section id="about" class="grass" style="height:520vh">
+<i class="sky"></i><i class="cl" style="left:8%;top:12vh"></i><i class="cl" style="left:70%;top:8vh"></i><i class="cl" style="left:45%;top:26vh"></i><i class="path"></i>
+<div class="bub t rv"><small>Hey there, my name is</small><b>SHIN MASADA</b></div>
+<div class="bub l rv" style="top:112vh;left:5%;--dx:-80px"><p>I’m a freshman at the University of Southern California, studying Human Technology Interaction at the Iovine and Young Academy. I’m interested in educational technology and how thoughtful design can make learning more engaging and accessible. In college, I’m excited to grow as a developer, explore new ideas, and build things that help people learn.</p></div>
+<div class="bub r rv" style="top:232vh;right:5%;--dx:80px"><p>I was born and raised in LA, but I visit Japan every summer. I love wandering through neighborhoods, exploring nature and temples, and finding good food—with plenty of photos along the way. When I’m not coding or doing homework, you’ll probably find me baking, hanging out with friends, or eating something sweet.</p></div>
+<div class="bub l rv" style="top:360vh;left:5%;--dx:-80px"><p>Scroll down to explore my projects and technical skills. See you on the other side!</p></div>
+</section>
+
+<section id="projects"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0 20V12L10 4 18 12 30 1 44 14 58 5 72 14 86 2 100 12V20Z" fill="#33476a"/><path d="M10 4 7 8l2 1 1-2 1 2 2-1zM30 1l-4 6 2 1 2-3 2 3 2-1zM86 2l-4 6 2 1 2-3 2 3 2-1z" fill="#fff"/></svg>
+<h2>Projects</h2><div class="grid" id="grid"></div></section>
+
+<section id="skills"><canvas id="sk" width="160" height="40"></canvas><h2>Skills</h2>
+<div class="chart rv"><div class="ax"><span>Expert</span><span>Advanced</span><span>Intermediate</span><span>Beginner</span></div><div class="bars" id="bars"></div></div></section>
+
+<section id="contact" class="grass" style="--sh:50%">
+<i class="sky"></i><i class="cl" style="left:6%;top:14%"></i><i class="cl" style="left:78%;top:20%"></i><i class="path"></i>
+<div id="c2w"><canvas id="c2" width="16" height="25"></canvas></div>
+<div id="pipe"><div class="pb"></div><div class="pl"></div></div>
+<div class="bub l rv cb1" style="--dx:-80px"><p>I hope you enjoyed the tour through my website! If you want to contact me, hit me up on my email.</p><p>✉ <a href="mailto:masada@usc.edu">masada@usc.edu</a></p></div>
+<div class="bub r rv cb2" style="--dx:80px"><p>Or check me out on social media!</p><div class="soc">
+<a href="https://www.linkedin.com/in/shinmasada/" target="_blank" rel="noopener" style="background:#0a66c2">LinkedIn</a>
+<a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener" style="background:#24292f">GitHub</a>
+<a href="https://www.instagram.com/masapyii/" target="_blank" rel="noopener" style="background:#d62976">Instagram</a></div></div>
+</section>
+
+<script>
+const $=id=>document.getElementById(id),el=(t,c,s)=>{const e=document.createElement(t);if(c)e.className=c;if(s)e.style.cssText=s;return e};
+let seed=7;const rnd=()=>(seed=seed*16807%2147483647)/2147483647;
+const P={y:'#f8d030',r:'#e04848',o:'#f08030',w:'#fff',g:'#58b048',G:'#a8e048',b:'#58a0f0',B:'#2c58b8',p:'#f8a8c0',n:'#a8662c',c:'#f8e8b0',v:'#7058a8',l:'#68c8b8',L:'#3a9088',S:'#4a7a90',k:'#222',t:'#d8b878'};
+// sprites: [mirror?, rows]  (mirrored ones are drawn as the left half)
+const D={
+pikachu:[1,['kk....','yy....','.yyyyy','yyyyyy','yykyyy','ryyyyk','yyyyyy','.yyyyy','.yyyyy','.yy.yy']],
+shinx:[1,['bb....','bbbbbb','bbbbbb','bbkbbb','bbbbcc','.bbbbb','.bbbby','.bb.bb']],
+mew:[1,['p......','pp.....','ppppppp','ppppppp','ppkbppp','ppkbppp','ppppppp','.pppppp','.pppppp','..pp.pp']],
+caterpie:[0,['..r.r.......','.GGGGG.GGG..','GkwGGGGGGGG.','GGGGGGGGGGGG','.GGGGGGGGGG.','.y.y.y.y.y..']],
+butterfree:[1,['..k.....','wwwwk.vv','wwkwwkrv','wwwwwkvv','.wwwwkvb','..wwwkvv','..wwk.bv','...w..vv']],
+bulbasaur:[0,['......kkkk....','.....kGGGGk...','..kk.kGGGGGk..','.kllkkGGGGGk..','kllrlkkGGGk...','kllllllllllk..','kllLlllLlllk..','.kllllllllllk.','.kllk..kllk...','.kkk...kkk....']],
+charizard:[1,['..o.......','.ooooooooo','oooooooooo','ookooooooo','oooooooooo','bbbooyyyyy','bBbooyyyyy','bBbooyyyyy','.bbooyyyyy','..ooyyyyyy','..oooooooo','.ttoo.....']],
+pidgey:[0,['..nn........','.nnnnn..nn..','pnknnnnnnnn.','ppcnnnnnnntt','.cccnnnnnnt.','.ccccnnnnn..','..cccccnn...','...p.p......']],
+snorlax:[1,['..SS......','.SSSSSSSSS','SSSSSSSSSS','SScccccccc','SSckcccccc','SScccccccc','SSSccccccc','SSSccccccc','SSSccccccc','SSSScccccc','ntSSSSSSSS','nttSSSSSSS']],
+tuft:[1,['g.G.g','gGgGg','ggggg']]};
+function ol(c){const w=c.width,h=c.height,x=c.getContext('2d'),d=x.getImageData(0,0,w,h).data,a=(i,j)=>i>=0&&j>=0&&i<w&&j<h&&d[(j*w+i)*4+3];x.fillStyle='#2a2438';for(let j=0;j<h;j++)for(let i=0;i<w;i++)if(!a(i,j)&&(a(i+1,j)||a(i-1,j)||a(i,j+1)||a(i,j-1)))x.fillRect(i,j,1,1)}
+const C={};function spr(n){if(C[n])return C[n];const[m,rows]=D[n],g=rows.map(r=>m?r+[...r].reverse().join(''):r),w=g[0].length,h=g.length,c=el('canvas');c.width=w+2;c.height=h+2;const x=c.getContext('2d');g.forEach((r,j)=>[...r].forEach((ch,i)=>{if(ch!='.'){x.fillStyle=P[ch];x.fillRect(i+1,j+1,1,1)}}));ol(c);return C[n]={u:c.toDataURL(),w:w+2,h:h+2}}
+function pk(n,sc,css,cls){const s=spr(n),i=el('img',cls||'pk',css);i.src=s.u;i.alt='';i.style.width=s.w*sc+'px';return i}
+function tree(v){const c=el('canvas');c.width=26;c.height=27;const x=c.getContext('2d');
+for(let j=0;j<24;j++)for(let i=0;i<24;i++){const dx=(i-12)/11,dy=(j-9)/8,e=(i-7-v)/8,f=(j-12)/6;if(dx*dx+dy*dy<1||e*e+f*f<1){x.fillStyle=(j>13||rnd()<.12&&j>6)?'#2f7d22':'#4aa832';x.fillRect(i+1,j+1,1,1)}}
+x.fillStyle='#8a5a22';x.fillRect(11,17,4,9);x.fillStyle='#5e3c14';for(let k=0;k<6;k++)x.fillRect(11+(rnd()*4|0),18+(rnd()*7|0),1,2);ol(c);return c.toDataURL()}
+// character
+function draw(c,o){const x=c.getContext('2d');x.clearRect(0,0,16,25);const R=(col,a,b,w,h)=>{x.fillStyle=col;x.fillRect(a,b,w,h)},H='#1b1b24',S='#f3cba3',T='#cfd5dd',s=o.ph==1?1:o.ph==2?-1:0,wv=o.wv!==undefined;
+R(S,4,5,8,6);R(H,4,1,8,4);R(H,3,3,1,5);R(H,12,3,1,5);
+if(o.back){R(H,3,1,10,9)}else{R(H,5,5,2,1);R(H,9,5,3,1);const G='#444';R(G,4,6,3,1);R(G,9,6,3,1);R(G,7,6,2,1);R(G,4,8,3,1);R(G,9,8,3,1);[4,6,9,11].forEach(a=>R(G,a,7,1,1));R('#111',5,7,1,1);R('#111',10,7,1,1);R('#c05050',7,10,2,1)}
+R(T,4,11,8,7);R(T,2,11+s,2,5);R(S,2,16+s,2,1);
+if(wv){R(T,12,7,2,5);R(S,12+o.wv,5,2,2)}else{R(T,12,11-s,2,5);R(S,12,16-s,2,1)}
+R('#2c3e66',5,18,3,4+s);R('#fff',5,22+s,3,1);R('#2c3e66',8,18,3,4-s);R('#fff',8,22-s,3,1);ol(c)}
+const hc=$('hero');draw(hc,{});$('lg').getContext('2d').drawImage(hc,0,0);
+let ly=scrollY,dir=1,walk=0,ph=0,cur='',tmo;
+function render(){const k=(dir>0?'f':'b')+(walk?ph:0);if(k!=cur){cur=k;draw(hc,{back:dir<0,ph:walk?ph:0})}}
+const ab=$('about');
+addEventListener('scroll',()=>{const y=scrollY;if(y!=ly){dir=y>ly?1:-1;ly=y;if(!walk)ph=1;walk=1;clearTimeout(tmo);tmo=setTimeout(()=>{walk=0;render()},140)}
+hc.style.opacity=y+innerHeight*.4<ab.offsetTop+ab.offsetHeight?1:0;$('lg').style.opacity=y>200?1:0;render()},{passive:true});
+setInterval(()=>{if(walk){ph=ph%2+1;render()}},150);
+// forest
+const T=[0,1,2].map(tree);
+for(let i=0;i<15;i++){const im=el('img','tr','left:'+(i%2?66+rnd()*26:2+rnd()*26)+'%;top:'+(7+i*6.3)+'%;width:182px'+(rnd()<.5?';transform:scaleX(-1)':''));im.src=T[i%3];ab.append(im)}
+// [name, scale, mode(t=behind tree,g=in grass), left%, top%]
+[['bulbasaur',4,'t',10,20],['pikachu',4,'g',72,31],['caterpie',4,'g',27,44],['shinx',4,'g',15,60],['mew',4,'t',78,68],['pikachu',3,'g',30,82]].forEach(([n,sc,m,L,Tp])=>{
+ if(m=='t'){const im=el('img','tr','left:'+L+'%;top:'+Tp+'%;width:182px');im.src=T[1];ab.append(im);const p=pk(n,sc,'left:calc('+L+'% + 62px);top:calc('+Tp+'% + 100px)');p.classList.add('rv');ab.append(p)}
+ else{const s=spr(n),w=el('div','pw rv','left:'+L+'%;top:'+Tp+'%;width:'+(12*sc*1.4)+'px;height:'+(s.h*sc*.74)+'px'),tf=pk('tuft',sc*1.4,'position:absolute;left:0;bottom:0;z-index:3');w.append(pk(n,sc,'margin:0 auto'),tf);ab.append(w)}});
+const butter=pk('butterfree',4,'left:68%;top:52%;animation:fl 2s ease-in-out infinite');ab.append(butter);
+// grass texture
+{const c=el('canvas');c.width=c.height=32;const x=c.getContext('2d');x.fillStyle='#4f8f35';x.fillRect(0,0,32,32);for(let i=0;i<120;i++){x.fillStyle=rnd()<.5?'#3f7a2b':'#62a040';x.fillRect(rnd()*32|0,rnd()*32|0,1,rnd()<.5?2:1)}
+document.querySelectorAll('.grass').forEach(e=>e.style.backgroundImage='url('+c.toDataURL()+')')}
+// projects + skills
+for(let i=1;i<=6;i++){const d=el('div','card rv','--dx:'+(i%2?-110:110)+'px;transition-delay:'+(i%3)*.12+'s');d.innerHTML='Project '+i+'<br>coming soon';$('grid').append(d)}
+[[55,'#3f4856'],[20,'#7a8598'],[45,'#3f4856'],[55,'#7a8598'],[35,'#3f4856'],[45,'#7a8598'],[80,'#3f4856']].forEach(([h,c],i)=>{const b=el('div','','--h:'+h+'%;background:'+c+';transition-delay:'+i*.12+'s');$('bars').append(b)});
+{const c=$('sk'),x=c.getContext('2d');x.fillStyle='#14140f';x.fillRect(0,0,160,40);
+for(const[l,col,win]of[[0,'#2f2f2f',0],[1,'#0b0b0b',1]])for(let X=-4;X<160;){const w=6+rnd()*7|0,h=14+rnd()*(l?14:20)|0;x.fillStyle=col;x.fillRect(X,40-h,w,h);if(win)for(let j=40-h+2;j<38;j+=3)for(let i=X+1;i<X+w-1;i+=2)if(rnd()<.55){x.fillStyle='#f4d36b';x.fillRect(i,j,1,1)}X+=w+(l?0:-2)+1}}
+// contact scene
+[['charizard',5,'left:calc(50% + 78px);top:200px'],['pikachu',4,'left:calc(50% - 30px);top:268px'],['pidgey',4,'top:70px;left:-100px;animation:fly 16s linear infinite'],
+['mew',4,'right:11%;top:330px;animation:fl 3s ease-in-out infinite'],['butterfree',3,'left:27%;top:290px;animation:fl 2.2s ease-in-out infinite'],
+['snorlax',7,'left:9%;top:62%'],['bulbasaur',4,'right:7%;top:70%'],['caterpie',4,'left:30%;top:84%'],['shinx',4,'right:30%;top:80%']].forEach(([n,sc,css])=>$('contact').append(pk(n,sc,css)));
+{const z=el('i','zz','left:calc(9% + 150px);top:56%');z.textContent='z Z';$('contact').append(z)}
+const c2=$('c2'),w2=$('c2w');draw(c2,{});
+new IntersectionObserver((e,o)=>{if(!e[0].isIntersecting)return;o.disconnect();w2.classList.add('out');let p=1;const t=setInterval(()=>draw(c2,{ph:p=p%2+1}),150);setTimeout(()=>{clearInterval(t);let v=0;draw(c2,{wv:0});setInterval(()=>draw(c2,{wv:v^=1}),320)},1550)},{threshold:.3}).observe($('contact'));
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.2});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+</script></body></html>
