@@ -2,6 +2,18 @@
 
 Open `index.html` in a browser to preview. No build step.
 
+The first project card links to `class-cue.html`, the Class Cue case study. Its
+styles, slide viewer, ten slide previews, and original PDF live in
+`assets/class-cue/`. Include that folder and `class-cue.html` when publishing
+the site. The deck can be viewed inline, opened full size, or downloaded.
+
+Project slots 2 and 3 link to `food-access-la.html` and `spoken-signs.html`.
+Both describe work in progress, use the supplied project logos, and share the
+case-study styles. Publish all three project HTML files and the complete
+`assets/` folder together with `index.html`.
+
+Run the interaction checks with `node --test tests/*.test.cjs`.
+
 ## Publish free on GitHub Pages
 1. On github.com, create a new public repository (e.g. `shinmasada.github.io`, or any name).
 2. Upload `index.html` (and this README) to the repo: Add file → Upload files → Commit.

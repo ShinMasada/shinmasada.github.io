@@ -746,7 +746,8 @@
         position: relative;
       }
       .card {
-        aspect-ratio: 16/9;
+        height: clamp(330px, 32vw, 380px);
+        min-width: 0;
         background: #fff3f6;
         border: 5px solid #b3263e;
         display: grid;
@@ -758,10 +759,49 @@
           inset -6px -6px #f3cdd8,
           6px 6px 0 rgba(60, 20, 50, 0.35);
       }
+      .card.classcue-card {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        text-decoration: none;
+        text-align: left;
+        color: #1b2030;
+        background: #f6f6f3;
+      }
+      .project-preview { position: absolute; top: 0; left: 16px; width: calc(100% - 16px); height: 100%; object-fit: contain; image-rendering: auto; object-position: center top; }
+      .card.food-card { background: #e9dfdc; }
+      .card.spoken-card { background: #fff; }
+      .card .project-logo { position: absolute; top: 8%; left: 7%; width: 86%; height: 40%; object-fit: contain; image-rendering: auto; }
+      .food-card .project-info { border-top-color: #a93e68; }
+      .food-card .project-info small, .food-card .project-extra b { color: #a93e68; }
+      .spoken-card .project-info { border-top-color: #4c4b9a; }
+      .spoken-card .project-info small, .spoken-card .project-extra b { color: #4c4b9a; }
+      .project-info { position: absolute; left: 0; right: 0; bottom: 0; height: 148px; padding: 14px 20px; background: #f9f8f3f5; border-top: 3px solid #3544e9; transition: height .25s ease; }
+      .project-info small { display: block; font-size: 18px; color: #3544e9; }
+      .project-info strong { display: block; font-size: 34px; font-weight: normal; }
+      .project-info .project-subtitle { display: block; font-size: 21px; }
+      .project-extra { display: block; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .25s ease, opacity .25s ease; font-size: 20px; }
+      .project-extra p { margin: 12px 0 8px; }
+      .project-extra b { color: #3544e9; font-weight: normal; }
+      .classcue-card:hover .project-extra,
+      .classcue-card:focus-visible .project-extra { max-height: 160px; opacity: 1; }
+      .classcue-card:hover .project-info,
+      .classcue-card:focus-visible .project-info { height: calc(100% - 64px); }
+      .classcue-card:focus-visible { outline: 4px solid #ffd84a; outline-offset: 5px; }
+      @media (hover: none) {
+        .card { height: 420px; }
+        .project-info { height: 290px; }
+        .classcue-card:hover .project-info,
+        .classcue-card:focus-visible .project-info { height: 290px; }
+        .card .project-logo { top: 5%; height: 23%; }
+        .project-extra { max-height: 160px; opacity: 1; }
+      }
       #skills {
-        background: linear-gradient(#1d1745, #120f33 300px, #0a0a18 640px);
+        background: linear-gradient(#50545a, #34383e 300px, #24272c 640px);
         padding-bottom: 100px;
       }
+      #skills .skw { filter: grayscale(1); }
+      #skills .stars { opacity: .3; animation: none; }
       .skw {
         position: relative;
         margin-bottom: 50px;
@@ -793,38 +833,36 @@
         margin: 150px 0 30px;
       }
       .chart {
-        display: flex;
-        max-width: 1000px;
+        max-width: 900px;
         margin: 0 auto;
-        padding: 0 5%;
-        height: 380px;
-        color: #eee;
+        padding: 0 24px;
+        color: #f2f3f4;
       }
-      .ax {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: right;
-        padding-right: 14px;
-        width: 130px;
-        font-size: 26px;
-      }
+      .chart.rv { translate: none; transition: opacity .45s ease; }
       .bars {
-        flex: 1;
-        border-left: 2px solid #ddd;
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-around;
-        gap: 10px;
+        display: grid;
+        gap: 16px;
       }
-      .bars div {
-        width: 11%;
-        height: 0;
-        transition: height 1.3s steps(20);
+      .skill-slot {
+        padding: 14px 18px 18px;
+        border: 2px solid #72777f;
+        background: #383d44;
+        box-shadow: 4px 4px #191c20;
       }
-      .chart.in .bars div {
-        height: var(--h);
+      .skill-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 10px; font-size: 27px; }
+      .skill-label strong { font-weight: normal; }
+      .skill-label span { color: #c3c7cc; font-size: 23px; }
+      .skill-track { height: 16px; background: #202328; border: 1px solid #858a92; padding: 2px; }
+      .skill-fill {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, #929aa5, #e2e5e9);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .85s cubic-bezier(.22, 1, .36, 1);
+        transition-delay: var(--delay);
       }
+      .chart.in .skill-fill { transform: scaleX(var(--level)); }
       #pipe {
         position: absolute;
         left: 50%;
@@ -913,7 +951,7 @@
         color: #fff;
         font-size: 40px;
         text-align: center;
-        transition: opacity 0.6s;
+        transition: opacity 0.2s;
       }
       #load canvas {
         width: 130px;
@@ -924,18 +962,8 @@
         width: min(300px, 80vw);
         height: 28px;
         border: 4px solid #fff;
-        margin: 64px auto 0;
+        margin: 28px auto 0;
         padding: 3px;
-      }
-      #pkr {
-        position: absolute;
-        bottom: 100%;
-        margin-bottom: -2px;
-        width: 128px;
-        image-rendering: pixelated;
-        left: 0;
-        transform: translateX(-50%);
-        transition: left 80ms linear;
       }
       .tip {
         position: absolute;
@@ -1126,7 +1154,7 @@
       <div>
         <canvas id="lcv" width="24" height="37"></canvas>
         <div>Loading<span id="dots"></span></div>
-        <div class="lb"><i id="bi"></i><img id="pkr" alt="" /></div>
+        <div class="lb"><i id="bi"></i></div>
       </div>
       <p class="tip">Tip: click the Pokémon to catch them all!</p>
     </div>
@@ -1186,7 +1214,36 @@
 
     <section id="projects">
       <h2>Projects</h2>
-      <div class="grid" id="grid"></div>
+      <div class="grid" id="grid">
+        <a class="card classcue-card rv" href="class-cue.html" aria-label="Class Cue: language-learning concept. Explore the project and presentation.">
+          <img class="project-preview" src="assets/class-cue/slide-01.webp" alt="" width="1400" height="788" loading="lazy">
+          <div class="project-info">
+            <small>01 · BIRDS OF A FEATHER</small>
+            <strong>Class Cue</strong>
+            <span class="project-subtitle">Language practice that follows your class.</span>
+            <div class="project-extra"><p>A team-built product concept. My contributions: research, ideation, business model, and presentation.</p><b>Explore the project &amp; slides ↗</b></div>
+          </div>
+        </a>
+        <a class="card classcue-card food-card rv" href="food-access-la.html" aria-label="Food Access LA: farmers market explorer and impact platform. Developer with USC Code the Change. In progress.">
+          <img class="project-logo" src="assets/food-access-la/logo.png" alt="" width="1314" height="422" loading="lazy">
+          <div class="project-info">
+            <small>02 · USC CODE THE CHANGE · IN PROGRESS</small>
+            <strong>Food Access LA</strong>
+            <span class="project-subtitle">Farmers Market Explorer &amp; Impact Platform</span>
+            <div class="project-extra"><p>Helping residents discover markets and community impact. My work: event APIs and sales-data validation.</p><b>Explore my work ↗</b></div>
+          </div>
+        </a>
+        <a class="card classcue-card spoken-card rv" href="spoken-signs.html" aria-label="Spoken Signs: making conversations more accessible. Developer. In progress.">
+          <img class="project-logo" src="assets/spoken-signs/logo.png" alt="" width="1180" height="208" loading="lazy">
+          <div class="project-info">
+            <small>03 · ACCESSIBILITY · IN PROGRESS</small>
+            <strong>Spoken Signs</strong>
+            <span class="project-subtitle">Making conversations more accessible.</span>
+            <div class="project-extra"><p>Exploring two-way communication through sign recognition and speech-to-text. My work: movement visualization and AI models.</p><b>Explore my work ↗</b></div>
+          </div>
+        </a>
+        <div class="card rv">Project 4<br>coming soon</div>
+      </div>
     </section>
 
     <section id="skills">
@@ -1196,12 +1253,8 @@
         <canvas id="sk" width="160" height="40"></canvas
         ><svg class="tt" id="tt" viewBox="0 0 80 200"></svg>
       </div>
-      <div class="chart rv">
-        <div class="ax">
-          <span>Expert</span><span>Advanced</span><span>Intermediate</span
-          ><span>Beginner</span>
-        </div>
-        <div class="bars" id="bars"></div>
+      <div class="chart rv" aria-label="My skills and proficiency levels">
+        <div class="bars" id="bars" role="list"></div>
       </div>
     </section>
 
@@ -1705,42 +1758,27 @@
       petals($("mm"), 22, "700px");
       petals($("projects"), 26, "1300px");
       // ---- projects / skills ----
-      for (let i = 1; i <= 4; i++) {
-        const d = el(
-          "div",
-          "card rv",
-          "--dx:" +
-            (i % 2 ? -160 : 160) +
-            "px;transition-delay:" +
-            (i > 2 ? 0.15 : 0) +
-            "s",
-        );
-        d.innerHTML = "Project " + i + "<br>coming soon";
-        $("grid").append(d);
-      }
       [
-        [55, "#ff4d8d"],
-        [20, "#38e0ff"],
-        [45, "#ffd23f"],
-        [55, "#ff4d8d"],
-        [35, "#38e0ff"],
-        [45, "#ffd23f"],
-        [80, "#ff4d8d"],
-      ].forEach(([h, c], i) =>
-        $("bars").append(
-          el(
-            "div",
-            "",
-            "--h:" +
-              h +
-              "%;background:" +
-              c +
-              ";transition-delay:" +
-              i * 0.14 +
-              "s",
-          ),
-        ),
-      );
+        ["Python", "Advanced"],
+        ["Java", "Advanced"],
+        ["C++", "Moderate"],
+        ["HTML", "Moderate"],
+        ["CSS", "Moderate"],
+        ["Japanese", "Expert"],
+        ["Baking", "Expert"],
+      ].forEach(([name, level], i) => {
+        const slot = el("div", "skill-slot");
+        slot.setAttribute("role", "listitem");
+        const label = el("div", "skill-label"), title = el("strong"), rating = el("span");
+        title.textContent = name;
+        rating.textContent = level;
+        label.append(title, rating);
+        const track = el("div", "skill-track");
+        track.setAttribute("aria-hidden", "true");
+        track.append(el("i", "skill-fill", "--level:" + ({ Moderate: .5, Advanced: .75, Expert: 1 }[level]) + ";--delay:" + i * .06 + "s"));
+        slot.append(label, track);
+        $("bars").append(slot);
+      });
       {
         const c = $("sk"),
           x = c.getContext("2d"),
@@ -2194,11 +2232,17 @@
         dir = 1,
         walk = 0,
         ph = 0,
+        walkStarted = 0,
         cur = "",
         tmo,
         busy = 0,
         landed = 0;
       const mm = $("mm");
+      function gaitFrame(elapsed, back = false) {
+        // Pass through a centered stance between the two forward steps.
+        const frames = back ? [1, 2] : [1, 0, 2, 0];
+        return frames[Math.floor(Math.max(0, elapsed) / (back ? 150 : 120)) % frames.length];
+      }
       const routes = [
         ["about", "Forest / About"],
         ["projects", "Blossom Grove / Projects"],
@@ -2238,15 +2282,17 @@
       function upd() {
         const y = scrollY;
         if (y != ly) {
-          dir = y > ly ? 1 : -1;
+          const nextDir = y > ly ? 1 : -1;
+          if (!walk || nextDir !== dir) walkStarted = performance.now();
+          dir = nextDir;
           ly = y;
-          if (!walk) ph = 1;
+          ph = gaitFrame(performance.now() - walkStarted, dir < 0);
           walk = 1;
           clearTimeout(tmo);
           tmo = setTimeout(() => {
             walk = 0;
             render();
-          }, 140);
+          }, 180);
         }
         $("lg").style.opacity = y > 200 ? 1 : 0;
         updateRoute();
@@ -2256,10 +2302,10 @@
       addEventListener("resize", updateRoute, { passive: true });
       setInterval(() => {
         if (walk) {
-          ph = (ph % 2) + 1;
+          ph = gaitFrame(performance.now() - walkStarted, dir < 0);
           render();
         }
-      }, 150);
+      }, 40);
       // ---- catching ----
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms)),
         CATCH = 0.65,
@@ -2600,97 +2646,30 @@
         b.classList.remove("on");
       }
       // ---- loading screen ----
-      function pkRun(frame) {
-        const c = el('canvas');
-        c.width = 96; c.height = 64;
-        const x = c.getContext('2d'), phase = frame / 12 * Math.PI * 2;
-        const lift = Math.round((1 - Math.cos(phase * 2)) * 2);
-        const pixel = (color, px, py) => {
-          x.fillStyle = color; x.fillRect(px, py - lift, 1, 1);
-        };
-        // Rasterize directly on a sprite grid: no softened vector edges.
-        const oval = (color, cx, cy, rx, ry) => {
-          for (let py = Math.floor(cy-ry); py <= cy+ry; py++)
-            for (let px = Math.floor(cx-rx); px <= cx+rx; px++)
-              if (((px+.5-cx)/rx)**2 + ((py+.5-cy)/ry)**2 < 1) pixel(color,px,py);
-        };
-        const shape = (color, points) => {
-          const xs = points.map(p=>p[0]), ys = points.map(p=>p[1]);
-          for (let py = Math.floor(Math.min(...ys)); py <= Math.max(...ys); py++) {
-            for (let px = Math.floor(Math.min(...xs)); px <= Math.max(...xs); px++) {
-              let inside = false;
-              for (let i = 0, j = points.length-1; i < points.length; j=i++) {
-                const [ax,ay] = points[i], [bx,by] = points[j];
-                if ((ay>py+.5)!==(by>py+.5) && px+.5 < (bx-ax)*(py+.5-ay)/(by-ay)+ax) inside = !inside;
-              }
-              if (inside) pixel(color,px,py);
-            }
-          }
-        };
-        const leg = (cx, offset, color) => {
-          const swing = Math.sin(phase+offset), tuck = Math.max(0,Math.cos(phase+offset));
-          const toeX = cx+swing*10, toeY = 60-tuck*9;
-          shape(color,[[cx-5,46],[cx+6,47],[cx+4+swing*5,53],[toeX+5,toeY-2],[toeX+3,toeY+1],[toeX-2,toeY],[cx-3+swing*4,54]]);
-        };
-        // Long lightning tail, flicking above the round, forward-leaning body.
-        const tail = Math.round(Math.sin(phase+.6)*2);
-        shape('#985823',[[36,36],[25,31],[26,26],[18,23+tail],[19,18+tail],[30,23],[29,28],[40,31]]);
-        shape('#ffdb4c',[[19,24+tail],[20,17+tail],[6,13+tail],[8,5+tail],[23,12+tail],[23,20+tail],[27,22+tail],[26,26+tail]]);
-        leg(49,Math.PI,'#dba52c');
-        leg(75,0,'#dba52c');
-        oval('#efb92e',56,38,25,18);
-        oval('#ffd64c',57,36,25,17);
-        oval('#ffdf68',58,43,21,11);
-        oval('#ffd64c',78,33,15,15);
-        oval('#ffd64c',87,38,8,8);
-        // Tapered back stripes and ears swept with the direction of travel.
-        shape('#9a5c24',[[43,23],[48,21],[49,34],[47,36],[45,31]]);
-        shape('#9a5c24',[[55,20],[60,20],[62,31],[60,32],[57,27]]);
-        const ear = Math.round(Math.sin(phase+.5));
-        shape('#e8af2a',[[73,25],[61,13+ear],[53,11+ear],[62,21],[78,29]]);
-        shape('#242b2c',[[53,11+ear],[62,14+ear],[67,21],[60,18]]);
-        shape('#ffdf68',[[81,24],[71,14-ear],[60,12-ear],[67,21],[82,29]]);
-        shape('#242b2c',[[60,12-ear],[66,13-ear],[71,20],[66,18]]);
-        leg(44,0,'#ffd64c');
-        leg(75,Math.PI,'#ffd64c');
-        oval('#242b2c',88,31,1.7,3.2);
-        pixel('#fff6d1',88,29);
-        oval('#df3838',83,39,3.4,3.4);
-        shape('#9f2826',[[81,40],[85,41],[84,43],[82,42]]);
-        pixel('#242b2c',94,36);
-        // A one-pixel silhouette outline ties the runner to the site's sprites.
-        ol(c);
-        return c.toDataURL();
-      }
-      const RF = Array.from({length: 12}, (_, i) => pkRun(i));
-      $('pkr').src = RF[0];
-      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const lc = $("lcv");
-      let lp = 1,
-        lt = setInterval(() => draw(lc, { ph: (lp = (lp % 2) + 1) }), 160),
+      const loadingStarted = performance.now();
+      let lt = setInterval(() => draw(lc, { ph: gaitFrame(performance.now() - loadingStarted) }), 40),
         pr = 0,
         dots = 0;
       const bar = setInterval(() => {
         pr = Math.min(94, pr + (94 - pr) * 0.075);
         $("bi").style.width = pr + "%";
-        $("pkr").style.left = pr + "%";
-        $("pkr").src = RF[reducedMotion ? 0 : dots % RF.length];
         $("dots").textContent = ".".repeat(dots++ % 4);
       }, 50);
       Promise.all([
         new Promise((r) => document.readyState === "complete" ? r() : addEventListener("load", r, { once: true })),
         document.fonts.ready,
-        new Promise((r) => setTimeout(r, 2000)),
+        chReady,
+        new Promise((r) => setTimeout(r, 400)),
       ]).then(() => {
         clearInterval(bar);
         $("bi").style.width = "100%";
-        $("pkr").style.left = "100%";
-        setTimeout(() => { $("load").style.opacity = 0; }, 180);
+        $("load").style.opacity = 0;
         setTimeout(() => {
           $("load").remove();
           clearInterval(lt);
           clearInterval(bar);
-        }, 600);
+        }, 220);
         {
           const A = ab,
             C = $("contact"),
@@ -2753,7 +2732,11 @@
         const io = new IntersectionObserver(
           (es) =>
             es.forEach((e) =>
-              e.target.classList.toggle("in", e.isIntersecting),
+              {
+                e.target.classList.toggle("in", e.isIntersecting);
+                // Keep the skill bars filled after their first reveal.
+                if (e.isIntersecting && e.target.classList.contains("chart")) io.unobserve(e.target);
+              },
             ),
           { threshold: 0.2 },
         );

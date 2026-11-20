@@ -17,6 +17,14 @@ function setup(extra = {}) {
   return context;
 }
 test('complete inline script parses', () => { new Function(script); });
+test('downward gait passes through neutral between opposite steps; upward cadence is retained', () => {
+  const c = setup();
+  vm.runInContext(source('gaitFrame'), c);
+  assert.deepEqual([0,120,240,360,480].map(t=>c.gaitFrame(t)), [1,0,2,0,1]);
+  assert.deepEqual([0,150,300].map(t=>c.gaitFrame(t,true)), [1,2,1]);
+  assert.equal(c.gaitFrame(119),1);
+  assert.equal(c.gaitFrame(239),0);
+});
 test('catches and team round-trip; only compact stable IDs are saved', () => {
   const c = setup();
   const saved = c.encodeCollection([{id:'forest:pikachu:0', k:'pikachu', team:1, src:'large image'}, {id:'forest:eevee:1', team:0}]);
@@ -78,14 +86,6 @@ test('Pokédex renders silhouettes, then revealed sprites, in a shared Shinx gro
   assert.equal(revealed.children[1].src, 'ss');
   assert.equal(revealed.children[2].textContent, 'Shiny Shinx');
   assert.equal(nodes['dex-progress'].value, 1);
-});
-test('runner generates all twelve frames without invalid drawing coordinates', () => {
-  const drawing = new Proxy({}, {set:()=>true,get:()=> (...args) => {
-    args.filter(v=>typeof v==='number').forEach(n=>assert(Number.isFinite(n)));
-  }});
-  const c = setup({el:()=>({getContext:()=>drawing,toDataURL:()=> 'image'}),ol:()=>{}});
-  vm.runInContext(source('pkRun'),c);
-  for (let frame=0;frame<12;frame++) assert.equal(c.pkRun(frame),'image');
 });
 test('Poké Ball center is white across the black equatorial band', () => {
   const pixels = new Map();

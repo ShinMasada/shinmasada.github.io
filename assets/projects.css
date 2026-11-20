@@ -1,0 +1,25 @@
+/* Shared additions for projects that are currently in development. */
+.food-project { --blue:#9e375d; }
+.spoken-project { --blue:#4c4b9a; }
+.ongoing-hero { padding-top:48px; }
+.brand-logo { width:min(620px,100%); max-height:150px; object-fit:contain; object-position:left center; margin:24px 0 38px; }
+.ongoing-hero h1 { font-size:clamp(42px,6.5vw,78px); line-height:1.07; letter-spacing:-.055em; max-width:1000px; }
+.status-pill { display:inline-flex; align-items:center; gap:8px; border:1px solid #91a28a; background:#e7eddf; color:#314b32; padding:5px 10px; font:700 12px/1.4 monospace; }
+.status-pill::before { content:""; width:7px; height:7px; background:#5d7e48; }
+.scope-panel { padding:30px; background:#eee6e5; border-left:4px solid var(--blue); }
+.spoken-project .scope-panel { background:#ecebf6; }
+.scope-panel h3 { margin-top:0; }
+.contribution-list { display:grid; gap:18px; margin-top:32px; }
+.contribution-list article { border-top:1px solid #bcc9bc; padding-top:22px; }
+.contribution-list h3 { margin-top:0; }
+.process-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); padding:0; margin:36px 0; list-style:none; gap:24px; }
+.process-list li { padding:24px; background:#f9faf7; border:1px solid #d2d8d6; }
+.process-list strong { display:block; margin:10px 0; font-size:22px; }
+.direction { margin-bottom:24px; padding:26px; border:1px solid var(--line); }
+.direction h3 { margin-top:0; }
+.project-status { padding:28px; border:1px solid var(--line); border-top:4px solid var(--blue); margin-top:32px; }
+@media(max-width:760px) {
+ .brand-logo { margin:24px 0 30px; max-height:110px; }
+ .process-list { grid-template-columns:1fr; gap:16px; }
+ .scope-panel { padding:24px; }
+}
