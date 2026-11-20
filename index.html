@@ -1148,6 +1148,9 @@
         }
       }
     </style>
+    <!-- Remove this stylesheet to restore the horizontal skill slots. -->
+    <link rel="stylesheet" href="assets/skills-skyline.css">
+    <link rel="stylesheet" href="assets/skills-tokyo.css">
   </head>
   <body>
     <div id="load">
@@ -1253,7 +1256,7 @@
         <canvas id="sk" width="160" height="40"></canvas
         ><svg class="tt" id="tt" viewBox="0 0 80 200"></svg>
       </div>
-      <div class="chart rv" aria-label="My skills and proficiency levels">
+      <div class="chart rv" tabindex="0" aria-label="My skills and proficiency levels. On small screens, scroll horizontally to explore all seven buildings.">
         <div class="bars" id="bars" role="list"></div>
       </div>
     </section>
@@ -1768,6 +1771,7 @@
         ["Baking", "Expert"],
       ].forEach(([name, level], i) => {
         const slot = el("div", "skill-slot");
+        slot.dataset.building = ["python", "java", "cpp", "html", "css", "japanese", "baking"][i];
         slot.setAttribute("role", "listitem");
         const label = el("div", "skill-label"), title = el("strong"), rating = el("span");
         title.textContent = name;
@@ -1775,7 +1779,42 @@
         label.append(title, rating);
         const track = el("div", "skill-track");
         track.setAttribute("aria-hidden", "true");
-        track.append(el("i", "skill-fill", "--level:" + ({ Moderate: .5, Advanced: .75, Expert: 1 }[level]) + ";--delay:" + i * .06 + "s"));
+        const building = el("i", "skill-fill", "--level:" + ({ Moderate: .5, Advanced: .75, Expert: 1 }[level]) + ";--delay:" + i * .06 + "s");
+        const sign = el("span", "building-sign");
+        sign.textContent = ["Python", "JAVA", "C++", "HTML", "CSS", "日本語", "BAKERY"][i];
+        const door = el("span", "building-door");
+        building.append(sign, door);
+        if (name !== "Japanese") {
+          const billboard = el("span", "building-billboard");
+          billboard.textContent = ["LAB", "COFFEE", "SYSTEMS", "WEB", "STUDIO", "", ""][i];
+          const sideSign = el("span", "building-side-sign");
+          sideSign.textContent = ["24H", "喫茶", "TECH", "OPEN", "DESIGN", "", "パン"][i];
+          if (name === "Java" || name === "Baking") {
+            const glyphs = Array.from(sideSign.textContent, (character) => {
+              const glyph = el("span");
+              glyph.textContent = character;
+              return glyph;
+            });
+            sideSign.replaceChildren(...glyphs);
+            sideSign.classList.add("sign-glyphs");
+          }
+          const shop = el("span", "building-shop");
+          if (billboard.textContent) building.append(billboard);
+          building.append(sideSign, shop);
+        }
+        if (name === "Baking") {
+          const bread = el("span", "bread-sign");
+          bread.innerHTML = '<svg viewBox="0 0 80 48" aria-hidden="true"><path d="M13 35C3 23 11 7 26 10C32 1 49 1 55 10C71 7 80 23 68 35V44H13Z" fill="#ffd793" stroke="#a85b32" stroke-width="3"/><path d="M26 17l-5 11m20-14-5 14m20-11-5 11" stroke="#fff2c9" stroke-width="5" stroke-linecap="round"/><path d="M17 36h47" stroke="#d79451" stroke-width="3"/></svg>';
+          const bakery = el("span", "bakery-storefront");
+          bakery.innerHTML = '<svg viewBox="0 0 120 130" preserveAspectRatio="none" aria-hidden="true"><rect x="3" y="20" width="114" height="110" fill="#ae6c66"/><rect x="9" y="37" width="32" height="93" fill="#502e4a" stroke="#ffda9e" stroke-width="3"/><rect x="14" y="44" width="22" height="57" fill="#f5be82"/><path d="M14 73h22" stroke="#8d4c4b" stroke-width="3"/><circle cx="34" cy="108" r="2" fill="#ffe3ac"/><rect x="48" y="38" width="62" height="78" fill="#ffe2a1" stroke="#633549" stroke-width="3"/><path d="M49 76h60m-60 29h60" stroke="#ae694d" stroke-width="4"/><g fill="#d68b3f" stroke="#ac6434" stroke-width="1.5"><path d="M53 69q0-14 13-14t13 14z"/><path d="M83 69q0-15 10-15t11 15z"/><path d="M53 98q2-14 11-7q8-9 14 7z"/><path d="M84 99q-3-12 8-12t12 12z"/></g><g stroke="#fff1be" stroke-width="2"><path d="m60 60-2 5m9-7-2 7m23-4 3-4m7 2-3 6m-39 31 5-3m28 3 5-3"/></g><path d="M0 13h120v17H0z" fill="#fff0cd"/><path d="M0 13h15v17H0zm30 0h15v17H30zm30 0h15v17H60zm30 0h15v17H90z" fill="#ef6386"/><path d="M0 13 9 0h102l9 13z" fill="#fff0cd"/><path d="m0 13 9-13h12l-6 13zm30 0 3-13h12v13zm30 0V0h12l3 13zm30 0-3-13h12l6 13z" fill="#ef6386"/><path d="M3 125h114v5H3z" fill="#5b324b"/></svg>';
+          building.append(bread, bakery);
+        }
+        if (name === "Japanese") {
+          const tower = el("span", "tower-art");
+          tower.innerHTML = '<svg viewBox="0 0 80 200" preserveAspectRatio="none" aria-hidden="true">' + tokyoTower() + '</svg>';
+          building.prepend(tower);
+        }
+        track.append(building);
         slot.append(label, track);
         $("bars").append(slot);
       });
@@ -1864,7 +1903,13 @@
           `<circle cx="40" cy="3" r="5" fill="rgba(255,60,60,.35)"/><circle class="bl" cx="40" cy="3" r="2" fill="#ff3030"/>`
         );
       }
-      $("tt").innerHTML = tokyoTower();
+      // A stepped office landmark in the distance; the skill tower is unique.
+      $("tt").innerHTML = '<path d="M10 200V48h10V27h12V13h16v14h12v21h10v152Z" fill="#142a46" stroke="#376080" stroke-width="2"/><path d="M10 49h60M20 28h40M32 14h16" fill="none" stroke="#85e7ff" stroke-width="3"/>' +
+        Array.from({length: 14}, (_, row) =>
+          Array.from({length: 4}, (_, col) =>
+            '<rect x="' + (18 + col * 13) + '" y="' + (58 + row * 10) + '" width="6" height="4" fill="' + ((row + col) % 3 ? '#92cbe1' : '#e6c78e') + '"/>',
+          ).join(''),
+        ).join('');
       // ---- contact scene ----
 
       // ---- depth: horizon, path-edge grass, tufts, night stars, contact trees ----

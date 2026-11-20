@@ -1,0 +1,266 @@
+/* Tokyo-night treatment layered over the reversible skills skyline. */
+#skills {
+  isolation:isolate;
+  padding-bottom:76px;
+  background:
+    radial-gradient(ellipse at 18% 36%,#3043a859,transparent 40%),
+    radial-gradient(ellipse at 84% 65%,#a42b7738,transparent 40%),
+    linear-gradient(#101532 0%,#142a64 25%,#493b75 39%,#171c3e 56%,#070d20 80%);
+}
+#skills::before {
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 40% 4% at 30% 12%,#02081f88,transparent),
+    radial-gradient(ellipse 52% 5% at 82% 21%,#060e2988,transparent),
+    radial-gradient(ellipse 40% 3% at 18% 31%,#0b163d99,transparent);
+}
+#skills .stars { opacity:.5; height:460px; }
+#skills h2 { margin:100px 0 12px; color:#e6f7ff; text-shadow:3px 3px #080c25,0 0 22px #59a9ff8c; }
+.tokyo-caption { position:relative;z-index:2;text-align:center;color:#99dfff;font-size:21px;letter-spacing:.13em;margin:0 20px 26px; }
+.tokyo-caption span { display:block;color:#d5d1ee;font-size:23px;letter-spacing:0;margin-top:8px; }
+#skills .skw { filter:none; margin:0 auto -24px; max-width:1400px; opacity:.88; }
+#skills .tt { filter:drop-shadow(0 0 7px #ff9d526e); }
+#skills .chart { position:relative;z-index:3;max-width:1160px;scrollbar-color:#536d9a #0c132c;padding-top:26px; }
+#skills .chart::before { color:#bac9e4;font-size:18px;letter-spacing:.08em;margin-bottom:24px; }
+#skills .bars {
+  min-width:740px;
+  background:
+    linear-gradient(transparent 328px,#93bdd6 328px,#2b476b 331px,#070c1c 335px,#17243d 348px,#080f24 398px,transparent 398px);
+}
+#skills .skill-slot { --neon:#79dfff;--wall:#17344c;--window:#a4e8ff; }
+#skills .skill-track { padding-inline:13px; }
+#skills .skill-track::after {
+  content:"";position:absolute;left:15%;right:15%;bottom:-44px;height:48px;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 5px,var(--neon) 5px 7px);
+  mask-image:linear-gradient(#0009,transparent);filter:blur(3px);opacity:.45;
+}
+#skills .skill-fill {
+  font-style:normal;
+  background:linear-gradient(90deg,var(--wall) 78%,#090f25 78%);
+  border-color:#080f22;border-top-color:var(--neon);
+  box-shadow:4px 0 #040917,inset 1px 0 #99caff42;
+  clip-path:inset(100% -16px 0 -16px);
+}
+#skills .chart.in .skill-fill { clip-path:inset(-30px -16px 0 -16px); }
+#skills .skill-fill::before {
+  inset:13px 9px 32px;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 7px,var(--wall) 7px 17px),
+    repeating-linear-gradient(90deg,var(--window) 0 5px,transparent 5px 13px);
+  opacity:.75;
+}
+#skills .skill-fill::after { border-color:#0b132a;background:var(--wall);box-shadow:0 -2px var(--neon); }
+#skills .building-sign {
+  position:absolute;z-index:2;top:24px;right:-9px;
+  padding:5px 3px;background:#0c1430;color:var(--neon);
+  border:2px solid var(--neon);box-shadow:0 0 9px color-mix(in srgb,var(--neon) 55%,transparent);
+  writing-mode:vertical-rl;text-orientation:upright;font-size:18px;line-height:1;letter-spacing:2px;
+}
+#skills .building-door { position:absolute;bottom:0;left:28%;width:40%;height:23px;background:linear-gradient(90deg,#0b1533 46%,var(--neon) 46% 52%,#0b1533 52%);border:2px solid var(--neon);border-bottom:0;box-shadow:0 0 8px color-mix(in srgb,var(--neon) 30%,transparent); }
+#skills .skill-label { padding-top:27px;font-size:26px;position:relative;z-index:2; }
+#skills .skill-label strong { color:var(--neon);text-shadow:0 0 12px color-mix(in srgb,var(--neon) 40%,transparent); }
+#skills .skill-label span { color:#cad5e8; }
+/* Python: blue glass office tower with a stepped illuminated crown. */
+#skills [data-building="python"] { --neon:#6de2ff;--wall:#173c57;--window:#91dcf3; }
+#skills [data-building="python"] .skill-fill { width:88%;border-right:5px solid #326b87; }
+#skills [data-building="python"] .skill-fill::after { left:16%;width:68%;height:10px;top:-16px;border-top:3px solid #8ff3ff;box-shadow:0 -7px #244661,0 -10px #6de2ff; }
+/* Java: narrow red-brick cafe block, warm windows and a striped awning. */
+#skills [data-building="java"] { --neon:#ff9a69;--wall:#503444;--window:#ffe1a3; }
+#skills [data-building="java"] .skill-fill { width:78%;background:repeating-linear-gradient(0deg,#503444 0 12px,#291f36 12px 14px); }
+#skills [data-building="java"] .skill-fill::before { inset:16px 12px 45px;background:repeating-linear-gradient(0deg,transparent 0 10px,var(--wall) 10px 28px),repeating-linear-gradient(90deg,#ffe1a3 0 9px,transparent 9px 22px); }
+#skills [data-building="java"] .building-door { left:12%;width:76%;height:27px;border-top:9px solid #ffb989; }
+#skills [data-building="java"] .building-sign { left:-10px;right:auto;color:#ffedd1;background:#9b3041; }
+/* C++: broad industrial electronics block with rooftop equipment. */
+#skills [data-building="cpp"] { --neon:#b9f6dd;--wall:#293f4a;--window:#c2e9e3; }
+#skills [data-building="cpp"] .skill-fill { border-top-width:9px; }
+#skills [data-building="cpp"] .skill-fill::after { left:12%;width:25%;height:14px;top:-23px;background:repeating-linear-gradient(0deg,#8a9ba4 0 2px,#324351 2px 4px);box-shadow:29px 0 #73858d; }
+#skills [data-building="cpp"] .building-sign { writing-mode:horizontal-tb;top:16px;left:7%;right:7%;text-align:center;font-size:19px; }
+/* HTML: a bright orange commercial block with wide horizontal light bands. */
+#skills [data-building="html"] { --neon:#ffca6b;--wall:#4a304c;--window:#f8bda6; }
+#skills [data-building="html"] .skill-fill::before { inset:12px 6px 38px;background:repeating-linear-gradient(0deg,#ffbc9255 0 4px,#241c38 4px 18px);border-inline:2px solid #b47190; }
+#skills [data-building="html"] .building-sign { writing-mode:horizontal-tb;top:40%;left:-8px;right:-8px;text-align:center;background:#a83f36;color:#fff0c3;font-size:21px; }
+#skills [data-building="html"] .skill-fill::after { width:68%;left:16%;height:10px;top:-16px; }
+/* CSS: violet design studio, balcony floors and an asymmetric rooftop. */
+#skills [data-building="css"] { --neon:#dc9dff;--wall:#39365b;--window:#d6c1ff; }
+#skills [data-building="css"] .skill-fill { width:88%;border-left:5px solid #926bbc; }
+#skills [data-building="css"] .skill-fill::before { inset:13px 7px 32px;background:repeating-linear-gradient(0deg,#0c1431 0 8px,#a28bc9 8px 11px,#584b80 11px 14px,transparent 14px 26px),repeating-linear-gradient(90deg,#c9d9ff 0 7px,transparent 7px 17px); }
+#skills [data-building="css"] .skill-fill::after { left:0;width:60%;height:18px;top:-24px;border-top:3px solid #dc9dff; }
+/* Japanese: the orange-and-white lattice of a Tokyo Tower-inspired landmark. */
+#skills [data-building="japanese"] { --neon:#ffb974; }
+#skills [data-building="japanese"] .skill-fill { background:none;border:0;box-shadow:none; }
+#skills [data-building="japanese"] .skill-fill::before,
+#skills [data-building="japanese"] .skill-fill::after,
+#skills [data-building="japanese"] .building-door { display:none; }
+#skills .tower-art { position:absolute;inset:0;filter:drop-shadow(0 0 5px #ff8b4c66); }
+#skills .tower-art svg { width:100%;height:100%; }
+#skills [data-building="japanese"] .building-sign { top:54%;left:0;right:0;writing-mode:horizontal-tb;letter-spacing:0;text-align:center;font-size:17px;background:#7d3026; }
+/* Baking: warm department-store bakery with a gabled roof and lit storefront. */
+#skills [data-building="baking"] { --neon:#ff9cc1;--wall:#5a3b52;--window:#ffe4b2; }
+#skills [data-building="baking"] .skill-fill { width:92%;border-top-color:#ffc5a3;border-inline:4px solid #805c70; }
+#skills [data-building="baking"] .skill-fill::after { width:100%;left:0;top:-23px;height:18px;clip-path:polygon(0 100%,50% 0,100% 100%);border:0;background:#f1b191;box-shadow:none; }
+#skills [data-building="baking"] .building-sign { writing-mode:horizontal-tb;left:-9px;right:-9px;top:20px;text-align:center;font-size:16px;letter-spacing:1px;background:#702e52; }
+#skills [data-building="baking"] .building-door { left:9%;width:82%;height:36px;border-top:10px solid #ffbcd1;background:repeating-linear-gradient(90deg,#f6d6a5 0 10px,#48314a 10px 13px); }
+@media(max-width:700px) {
+  #skills h2 { margin-top:80px; }
+  #skills .skw { min-height:140px; }
+  #skills #sk { position:absolute;bottom:0; }
+  #skills .chart::after { color:#b5ccef; }
+  .tokyo-caption { font-size:17px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  #skills .skill-fill { transition:none; }
+  #skills .tt .bl,#skills .tower-art .bl { animation:none; }
+}
+
+/* Dense illuminated street fronts, inspired by Shinjuku's stacked signboards. */
+#skills {
+  background:
+    radial-gradient(ellipse at 18% 70%,#074dc075,transparent 38%),
+    radial-gradient(ellipse at 85% 76%,#a4187859,transparent 38%),
+    linear-gradient(#090d2b,#102853 28%,#433064 42%,#0a1230 65%,#030817);
+}
+#skills h2 { color:#fff;text-shadow:0 0 3px #fff,0 0 12px #6be5ff,0 0 36px #285dff,4px 4px #080b23; }
+#skills .chart { max-width:1240px; }
+#skills .bars {
+  min-width:840px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 70px,#77b4f31a 70px 72px) 0 335px / 100% 75px no-repeat,
+    linear-gradient(transparent 326px,#507ab7 327px,#d1c9ff 329px,#12192f 333px,#253251 345px,#080f24 408px,transparent 408px);
+}
+#skills .skill-track { padding-inline:12px; }
+#skills .skill-track::after {
+  bottom:-62px;height:67px;left:4%;right:4%;opacity:.8;
+  background:repeating-linear-gradient(0deg,transparent 0 4px,var(--neon) 4px 7px),linear-gradient(90deg,transparent,#ff478aaa,transparent);
+  filter:blur(3px);mask-image:linear-gradient(#000b,transparent);
+}
+#skills .skill-fill { box-shadow:4px 0 #040917,inset 2px 0 var(--neon),inset -2px 0 #5fa5ff66,0 0 12px color-mix(in srgb,var(--neon) 25%,transparent); }
+#skills .building-sign {
+  text-shadow:0 0 4px currentColor;
+  box-shadow:0 0 4px var(--neon),0 0 17px color-mix(in srgb,var(--neon) 65%,transparent),inset 0 0 9px color-mix(in srgb,var(--neon) 25%,transparent);
+  border-width:3px;
+}
+#skills .building-billboard {
+  position:absolute;top:15px;left:5%;width:61%;z-index:2;
+  border:2px solid #b2f5ff;padding:5px 1px;background:#1136a0;color:#fff;
+  font-size:14px;line-height:1.1;text-align:center;letter-spacing:.5px;
+  box-shadow:0 0 8px #27a9ff,inset 0 0 8px #005aff;text-shadow:0 0 5px #69dbff;
+}
+#skills .building-side-sign {
+  position:absolute;left:-9px;top:43%;z-index:3;
+  writing-mode:vertical-rl;text-orientation:upright;
+  background:#af1853;color:#fff5ab;border:2px solid #ff72a5;
+  padding:5px 2px;font-size:15px;line-height:1;letter-spacing:1px;
+  box-shadow:0 0 6px #ff4586,0 0 14px #ff228575;text-shadow:0 0 3px #fff3b6;
+}
+#skills .building-shop {
+  position:absolute;bottom:0;left:6%;right:6%;height:35px;z-index:2;
+  background:repeating-linear-gradient(90deg,#07132d 0 11px,#baf2ff 11px 13px);
+  border:2px solid var(--neon);border-top:8px solid var(--neon);
+  box-shadow:0 -3px 9px color-mix(in srgb,var(--neon) 45%,transparent);
+}
+#skills [data-building="python"] .building-billboard { top:26%;left:6%;width:65%;height:44px;padding-top:12px;border-color:#6df8ff;background:linear-gradient(135deg,#0c183a,#215d9b);font-size:23px; }
+#skills [data-building="python"] .skill-fill::before { opacity:1;box-shadow:0 0 6px #35c6ff33; }
+#skills [data-building="java"] .building-billboard { top:17px;left:10%;width:90%;font-size:13px;border-color:#ffe9a9;background:#913923;box-shadow:0 0 12px #ff9c4c; }
+#skills [data-building="java"] .building-side-sign { left:auto;right:-10px;top:45%;background:#214e44;color:#e5ffa6;border-color:#aff37a;box-shadow:0 0 10px #8dff73; }
+#skills [data-building="java"] .building-shop { background:#f2b472;border-top:8px solid #fff0c1;box-shadow:0 0 12px #fca352; }
+#skills [data-building="cpp"] .building-billboard { top:51px;left:9%;width:82%;background:#f1f4cf;color:#183533;border-color:#78ebca;box-shadow:0 0 10px #a8ffba;text-shadow:none;font-size:12px; }
+#skills [data-building="cpp"] .building-side-sign { top:77px;left:auto;right:-10px;writing-mode:horizontal-tb;font-size:12px;background:#1e5ec7;color:white;border-color:#67b9ff;box-shadow:0 0 10px #459eff; }
+#skills [data-building="html"] .building-billboard { left:0;width:78%;top:9px;background:#f4cf36;color:#7c1425;border-color:#fff59a;box-shadow:0 0 12px #ffad36;text-shadow:none;font-size:22px; }
+#skills [data-building="html"] .building-side-sign { left:auto;right:-10px;top:63%;writing-mode:horizontal-tb;font-size:12px; }
+#skills [data-building="html"] .building-shop { background:repeating-linear-gradient(90deg,#ffe4a4 0 13px,#793a31 13px 16px); }
+#skills [data-building="css"] .building-billboard { top:49%;left:-8px;width:110%;background:#5423a6;border-color:#f4b9ff;box-shadow:0 0 13px #cb54ff;font-size:16px; }
+#skills [data-building="css"] .building-side-sign { top:9px;left:3%;writing-mode:horizontal-tb;font-size:11px;background:#075266;color:#a4fffb;border-color:#5cfff4;box-shadow:0 0 10px #23cfff; }
+#skills .tower-art { filter:drop-shadow(0 0 3px #ffb16d) drop-shadow(0 0 10px #ff732777); }
+#skills [data-building="japanese"] .skill-fill { box-shadow:none; }
+/* Bakery: bread emblem, warm display shelves and a scalloped striped awning. */
+#skills [data-building="baking"] { --neon:#ff8fb6;--wall:#643e56;--window:#ffd69b; }
+#skills [data-building="baking"] .skill-fill { background:repeating-linear-gradient(0deg,#643e56 0 13px,#412c43 13px 15px); }
+#skills [data-building="baking"] .skill-fill::before { inset:55px 8px 129px;opacity:.5; }
+#skills [data-building="baking"] .building-sign { top:7px;left:-10px;right:-10px;padding:7px 1px;font-size:17px;background:#972d55;color:#fff5d6;box-shadow:0 0 5px #ffb7cb,0 0 20px #ff468c99; }
+#skills [data-building="baking"] .building-billboard { top:auto;bottom:133px;left:5%;width:90%;background:#fff0c1;color:#793e2e;border-color:#ffbc70;box-shadow:0 0 10px #ffb36a;text-shadow:none;font-size:16px; }
+#skills [data-building="baking"] .building-side-sign { left:auto;right:-11px;top:49px;background:#c34e4d;border-color:#ffe19b;color:#fff3c2;font-size:20px; }
+#skills [data-building="baking"] .building-shop,
+#skills [data-building="baking"] .building-door { display:none; }
+#skills .bread-sign { position:absolute;top:50px;left:10%;width:75%;height:57px;z-index:2;filter:drop-shadow(0 0 7px #ffbe6e); }
+#skills .bread-sign svg { width:100%;height:100%; }
+#skills .bakery-storefront { position:absolute;bottom:0;left:-3px;right:-3px;height:125px;z-index:3;filter:drop-shadow(0 0 5px #ffbc6244); }
+#skills .bakery-storefront svg { width:100%;height:100%; }
+
+/* Shared sign sizing; individual facades have their own sign arrangement below. */
+#skills .skill-slot[data-building] .building-sign {
+  top:10px;left:4px;right:4px;width:auto;
+  writing-mode:horizontal-tb;text-orientation:mixed;
+  text-align:center;font-size:16px;letter-spacing:0;padding:5px 1px;
+  white-space:nowrap;
+}
+#skills .skill-slot[data-building] .building-billboard {
+  top:48px;bottom:auto;left:5px;right:5px;width:auto;height:auto;
+  padding:5px 1px;font-size:13px;line-height:1.1;letter-spacing:0;
+}
+#skills .skill-slot[data-building] .building-side-sign {
+  top:auto;bottom:44px;left:6px;right:6px;width:auto;
+  writing-mode:horizontal-tb;text-orientation:mixed;
+  text-align:center;font-size:12px;line-height:1;padding:4px 1px;letter-spacing:0;
+}
+/* Python: a vertical name at the right edge with a smaller lab board to its left. */
+#skills .skill-slot[data-building="python"] .building-sign {
+  top:12px;left:auto;right:0;width:24px;writing-mode:vertical-rl;text-orientation:upright;
+  font-size:15px;letter-spacing:1px;padding:6px 2px;
+}
+#skills .skill-slot[data-building="python"] .building-billboard { top:48px;left:3px;right:31px;font-size:19px;padding:10px 0; }
+#skills .skill-slot[data-building="python"] .building-side-sign { left:4px;right:auto;width:43px;bottom:52px; }
+/* Java: a horizontal roof sign and a projecting cafe sign beside the windows. */
+#skills .skill-slot[data-building="java"] .building-sign { top:10px;left:3px;right:3px; }
+#skills .skill-slot[data-building="java"] .building-billboard { top:60px;left:0;right:26px;font-size:11px;padding:6px 0; }
+#skills .skill-slot[data-building="java"] .building-side-sign {
+  top:60px;bottom:auto;left:auto;right:0;width:22px;
+  writing-mode:vertical-rl;text-orientation:upright;font-size:16px;padding:0;
+  height:50px;display:flex;align-items:center;justify-content:center;line-height:1;
+}
+/* C++: a wide systems billboard below two signs of different orientations. */
+#skills .skill-slot[data-building="cpp"] .building-sign { top:12px;left:3px;right:29px; }
+#skills .skill-slot[data-building="cpp"] .building-billboard { top:74px;left:3px;right:3px;font-size:12px; }
+#skills .skill-slot[data-building="cpp"] .building-side-sign {
+  top:7px;bottom:auto;left:auto;right:0;width:23px;
+  writing-mode:vertical-rl;text-orientation:upright;font-size:11px;padding:0;
+  height:58px;display:flex;align-items:center;justify-content:center;line-height:1;
+}
+/* HTML: a tall left-hand marquee and a compact yellow board on the right. */
+#skills .skill-slot[data-building="html"] .building-sign {
+  top:8px;left:0;right:auto;width:25px;
+  writing-mode:vertical-rl;text-orientation:upright;font-size:15px;padding:5px 2px;
+}
+#skills .skill-slot[data-building="html"] .building-billboard { top:14px;left:31px;right:0;font-size:17px;padding:7px 0; }
+#skills .skill-slot[data-building="html"] .building-side-sign { left:auto;right:0;width:49px;bottom:42px; }
+/* CSS: offset studio and design boards counterbalance the vertical name. */
+#skills .skill-slot[data-building="css"] .building-sign {
+  top:10px;left:auto;right:0;width:24px;
+  writing-mode:vertical-rl;text-orientation:upright;font-size:16px;padding:5px 1px;
+}
+#skills .skill-slot[data-building="css"] .building-billboard { top:48px;left:0;right:30px;font-size:11px;padding:6px 0; }
+#skills .skill-slot[data-building="css"] .building-side-sign { left:0;right:auto;width:62px;bottom:42px; }
+#skills .skill-slot[data-building="japanese"] .building-sign { top:54%;left:0;right:0;font-size:17px; }
+#skills .skill-slot[data-building="baking"] .building-sign { top:7px; }
+#skills .skill-slot[data-building="baking"] .building-billboard { top:auto;bottom:132px;font-size:15px; }
+#skills .skill-slot[data-building="baking"] .building-side-sign {
+  top:49px;bottom:auto;left:auto;right:0;width:24px;
+  writing-mode:vertical-rl;text-orientation:upright;font-size:17px;padding:6px 1px;
+}
+#skills .bread-sign { left:3px;width:calc(100% - 32px);top:45px;height:58px; }
+#skills .bakery-storefront { left:0;right:0; }
+#skills .tt { filter:drop-shadow(0 0 5px #76c9ff55); }
+
+/* Stack Japanese glyphs explicitly to avoid vertical-font baseline offsets. */
+#skills .skill-slot[data-building] .building-side-sign.sign-glyphs {
+  writing-mode:horizontal-tb;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  width:24px;height:52px;padding:0;gap:2px;letter-spacing:0;
+  font-family:"Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-size:16px;font-style:normal;line-height:1;
+}
+#skills .sign-glyphs > span {
+  display:flex;align-items:center;justify-content:center;
+  width:18px;height:18px;line-height:18px;text-align:center;
+}
+/* A clean black boundary above the daylight sky and downward-facing pipe. */
+#skills { padding-bottom:76px;border-bottom:24px solid #000; }
